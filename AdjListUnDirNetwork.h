@@ -333,6 +333,18 @@ void AdjListUnDirNetwork<ElemType, WeightType>::DeleteArc(int v1, int v2)
         delete p;    
 		arcNum--;
 	}
+    p = vexTable[v2].firstarc;
+    while (p != NULL && p->adjVex != v1) {
+        q = p;
+        p = p->nextarc;
+    }
+    if (p != NULL) {
+        if (vexTable[v2].firstarc == p)
+            vexTable[v2].firstarc = p->nextarc;
+        else
+            q->nextarc = p->nextarc;
+        delete p;
+    }
 }
 
 template <class ElemType, class WeightType>
