@@ -1,75 +1,75 @@
 #ifndef __ADJ_LIST_GRAPH_H__
 #define __ADJ_LIST_GRAPH_H__
 
-#include "AdjListUnDirNetworkArc.h"			// ï¿½ï¿½ï¿½ï¿½ï¿½Ú½Ó±ï¿½Ä±ß½ï¿½ï¿½ï¿½ï¿½
-#include "AdjListUnDirNetworkVex.h"            // ï¿½ï¿½ï¿½ï¿½ï¿½Ú½Ó±ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#include "AdjListUnDirNetworkArc.h"			// ÍøÂçÁÚ½Ó±íµÄ±ß½áµãÀà
+#include "AdjListUnDirNetworkVex.h"            // ÍøÂçÁÚ½Ó±íµÄ¶¥µã½áµãÀà
 
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú½Ó±ï¿½ï¿½ï¿½
+// ÎÞÏòÍøµÄÁÚ½Ó±íÀà
 template <class ElemType, class WeightType>
 class AdjListUnDirNetwork
 {
 protected:
-// ï¿½Ú½Ó±ï¿½ï¿½ï¿½ï¿½ï¿½Ý³ï¿½Ô±:
-	int vexNum, vexMaxNum, arcNum;					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½Í±ï¿½ï¿½ï¿½
-	AdjListNetWorkVex<ElemType, WeightType> *vexTable;	// ï¿½ï¿½ï¿½ï¿½ï¿½
-	mutable Status *tag;					        // ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½				
-	WeightType infinity;							// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ 
+// ÁÚ½Ó±íµÄÊý¾Ý³ÉÔ±:
+	int vexNum, vexMaxNum, arcNum;					// ¶¥µãÊýÄ¿¡¢ÔÊÐíµÄ¶¥µã×î´óÊýÄ¿ºÍ±ßÊý
+	AdjListNetWorkVex<ElemType, WeightType> *vexTable;	// ¶¥µã±í
+	mutable Status *tag;					        // ±êÖ¾Êý×é				
+	WeightType infinity;							// ÎÞÇî´óµÄÖµ 
 
 public:
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½ÏµÍ³Ä¬ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:
+// ³éÏóÊý¾ÝÀàÐÍ·½·¨ÉùÃ÷¼°ÖØÔØ±àÒëÏµÍ³Ä¬ÈÏ·½·¨ÉùÃ÷:
 	AdjListUnDirNetwork(ElemType es[], int vertexNum, int vertexMaxNum = DEFAULT_SIZE,
 		WeightType infinit = (WeightType)DEFAULT_INFINITY);
-		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½es[]Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªvertexNum,ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ÎªvertexMaxNum,
-        // infinitï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// ÒÔÊý×ées[]Îª¶¥µãÊý¾Ý,¶¥µã¸öÊýÎªvertexNum,ÔÊÐíµÄ¶¥µã×î´óÊýÄ¿ÎªvertexMaxNum,
+        // infinit±íÊ¾ÎÞÇî´ó,±ßÊýÎª0¹¹ÔìÓÐÎÞÏòÍø
 	AdjListUnDirNetwork(int vertexMaxNum = DEFAULT_SIZE,
 		WeightType infinit = (WeightType)DEFAULT_INFINITY);
-		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ÎªvertexMaxNum,infinitï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	~AdjListUnDirNetwork();						 // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	void Clear();			                     // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	bool IsEmpty();                              // ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Îªï¿½ï¿½
-	int GetOrder(ElemType &d) const;             // ï¿½ó¶¥µï¿½ï¿½ï¿½ï¿½ï¿½	
-	Status GetElem(int v, ElemType &d) const;    // ï¿½ó¶¥µï¿½ï¿½Ôªï¿½ï¿½Öµ	
-	Status SetElem(int v, const ElemType &d);    // ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½Öµ
-	WeightType GetInfinity() const;				 // È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ			 
-	int GetVexNum() const;						 // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int GetArcNum() const;						 // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	int FirstAdjVex(int v) const;				 // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½vï¿½Äµï¿½Ò»ï¿½ï¿½ï¿½Ú½Óµï¿½
-	int NextAdjVex(int v1, int v2) const;		 // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½v1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½v2ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ú½Óµï¿½
-	void InsertVex(const ElemType &d);			 // ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ÖµÎªdï¿½Ä¶ï¿½ï¿½ï¿½		 
-	void InsertArc(int v1, int v2, WeightType w);// ï¿½ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½Îªv1ï¿½ï¿½v2ï¿½ï¿½È¨Îªwï¿½Ä±ï¿½			 
-	void DeleteVex(const ElemType &d);			 // É¾ï¿½ï¿½Ôªï¿½ï¿½ÖµÎªdï¿½Ä¶ï¿½ï¿½ï¿½			 
-	void DeleteArc(int v1, int v2);			     // É¾ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½Îªv1ï¿½ï¿½v2ï¿½Ä±ï¿½			 
-	WeightType GetWeight(int v1, int v2) const;	 // ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½Îªv1ï¿½ï¿½v2ï¿½Ä±ßµï¿½È¨Öµ
-	void SetWeight(int v1, int v2, WeightType w);// ï¿½ï¿½ï¿½Ã´Ó¶ï¿½ï¿½ï¿½Îªv1ï¿½ï¿½v2ï¿½Ä±ßµï¿½È¨Öµ
-	Status GetTag(int v) const;				     // ï¿½ó¶¥µï¿½vï¿½Ä±ï¿½Ö¾		 
-	void SetTag(int v, Status tag) const;	     // ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½vï¿½Ä±ï¿½Ö¾Îªtag
+		// ¹¹ÔìÔÊÐíµÄ¶¥µã×î´óÊýÄ¿ÎªvertexMaxNum,infinit±íÊ¾ÎÞÇî´ó,±ßÊýÎª0µÄÎÞÏòÍø
+	~AdjListUnDirNetwork();						 // Îö¹¹º¯Êý
+	void Clear();			                     // Çå¿ÕÎÞÏòÍø
+	bool IsEmpty();                              // ÅÐ¶ÏÎÞÏòÍøÊÇ·ñÎª¿Õ
+	int GetOrder(ElemType &d) const;             // Çó¶¥µãµÄÐòºÅ	
+	Status GetElem(int v, ElemType &d) const;    // Çó¶¥µãµÄÔªËØÖµ	
+	Status SetElem(int v, const ElemType &d);    // ÉèÖÃ¶¥µãµÄÔªËØÖµ
+	WeightType GetInfinity() const;				 // È¡ÎÞÇî´óµÄÖµ			 
+	int GetVexNum() const;						 // ÇóÎÞÏòÍøµÄ¶¥µã¸öÊý
+	int GetArcNum() const;						 // ÇóÎÞÏòÍøµÄ±ßÊý¸öÊý
+	int FirstAdjVex(int v) const;				 // ÇóÎÞÏòÍøÖÐ¶¥µãvµÄµÚÒ»¸öÁÚ½Óµã
+	int NextAdjVex(int v1, int v2) const;		 // ÇóÎÞÏòÍøÖÐ¶¥µãv1µÄÏà¶ÔÓÚv2µÄÏÂÒ»¸öÁÚ½Óµã
+	void InsertVex(const ElemType &d);			 // ²åÈëÔªËØÖµÎªdµÄ¶¥µã		 
+	void InsertArc(int v1, int v2, WeightType w);// ²åÈë´Ó¶¥µãÎªv1µ½v2¡¢È¨ÎªwµÄ±ß			 
+	void DeleteVex(const ElemType &d);			 // É¾³ýÔªËØÖµÎªdµÄ¶¥µã			 
+	void DeleteArc(int v1, int v2);			     // É¾³ý´Ó¶¥µãÎªv1µ½v2µÄ±ß			 
+	WeightType GetWeight(int v1, int v2) const;	 // Çó´Ó¶¥µãÎªv1µ½v2µÄ±ßµÄÈ¨Öµ
+	void SetWeight(int v1, int v2, WeightType w);// ÉèÖÃ´Ó¶¥µãÎªv1µ½v2µÄ±ßµÄÈ¨Öµ
+	Status GetTag(int v) const;				     // Çó¶¥µãvµÄ±êÖ¾		 
+	void SetTag(int v, Status tag) const;	     // ÉèÖÃ¶¥µãvµÄ±êÖ¾Îªtag
 
 
 	// TODO
 	int CountDegree(int v) const;
 	int ConnectedComponent() const;
-	void Prim();     // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	void Kruskal();  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	void BreakCycle(); // ï¿½ï¿½È¦
+	void Prim();     // ´úÂëÒÑÓÐ
+	void Kruskal();  // ´úÂëÒÑÓÐ
+	void BreakCycle(); // ÆÆÈ¦
 	bool hasUniqueMinTree();
 
-	AdjListUnDirNetwork(const AdjListUnDirNetwork<ElemType, WeightType> &copy);	// ï¿½ï¿½ï¿½Æ¹ï¿½ï¿½ìº¯ï¿½ï¿½
+	AdjListUnDirNetwork(const AdjListUnDirNetwork<ElemType, WeightType> &copy);	// ¸´ÖÆ¹¹Ôìº¯Êý
 	AdjListUnDirNetwork<ElemType, WeightType> &operator =
-		(const AdjListUnDirNetwork<ElemType, WeightType> &copy); // ï¿½ï¿½ï¿½Ø¸ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½
-    void Display();	// ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú½Ó±ï¿½
+		(const AdjListUnDirNetwork<ElemType, WeightType> &copy); // ÖØÔØ¸³ÖµÔËËã·û
+    void Display();	// ÏÔÊ¾ÎÞÏòÍøÁÚ½Ó±í
 };
 
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú½Ó±ï¿½ï¿½ï¿½ï¿½Êµï¿½Ö²ï¿½ï¿½ï¿½
+// ÎÞÏòÍøµÄÁÚ½Ó±íÀàµÄÊµÏÖ²¿·Ö
 template <class ElemType, class WeightType>
 AdjListUnDirNetwork<ElemType, WeightType>::AdjListUnDirNetwork(ElemType es[],
        int vertexNum, int vertexMaxNum, WeightType infinit)
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì¶¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªes[],ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªnumVex,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªvertexNum,infinitï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+// ²Ù×÷½á¹û£º¹¹Ôì¶¥µãÊý¾ÝÎªes[],¶¥µãÊýÎªnumVex,¶¥µã¸öÊýÎªvertexNum,infinit±íÊ¾ÎÞÇî´ó,±ßÊýÎª0µÄÎÞÏòÍø
 {
 	if (vertexMaxNum < 0)
-    	throw Error("ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½!");        // ï¿½×³ï¿½ï¿½ì³£
+    	throw Error("ÔÊÐíµÄ¶¥µã×î´óÊýÄ¿²»ÄÜÎª¸º!");        // Å×³öÒì³£
 
 	if (vertexMaxNum < vertexNum)
-    	throw Error("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½Ü´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿!");// ï¿½×³ï¿½ï¿½ì³£
+    	throw Error("¶¥µãÊýÄ¿²»ÄÜ´óÓÚÔÊÐíµÄ¶¥µã×î´óÊýÄ¿!");// Å×³öÒì³£
 
 	vexNum = vertexNum;			
 	vexMaxNum = vertexMaxNum; 
@@ -88,10 +88,10 @@ AdjListUnDirNetwork<ElemType, WeightType>::AdjListUnDirNetwork(ElemType es[],
 
 template <class ElemType, class WeightType>
 AdjListUnDirNetwork<ElemType, WeightType>::AdjListUnDirNetwork(int vertexMaxNum, WeightType infinit)
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì¶¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ÎªvertexMaxNum,infinitï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+// ²Ù×÷½á¹û£º¹¹Ôì¶¥µã×î´óÊýÄ¿ÎªvertexMaxNum,infinit±íÊ¾ÎÞÇî´óµÄ¿ÕÎÞÏòÍø
 {
 	if (vertexMaxNum < 0)
-    	throw Error("ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½!");// ï¿½×³ï¿½ï¿½ì³£
+    	throw Error("ÔÊÐíµÄ¶¥µã×î´óÊýÄ¿²»ÄÜÎª¸º!");// Å×³öÒì³£
 
 	vexNum = 0;			
 	vexMaxNum = vertexMaxNum;
@@ -104,19 +104,19 @@ AdjListUnDirNetwork<ElemType, WeightType>::AdjListUnDirNetwork(int vertexMaxNum,
 
 template <class ElemType, class WeightType>
 AdjListUnDirNetwork<ElemType, WeightType>::~AdjListUnDirNetwork()
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½Ú½Ó±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½Ã¿Õ¼ï¿½
+// ²Ù×÷½á¹û£ºÊÍ·ÅÁÚ½Ó±íÎÞÏòÍøËùÕ¼ÓÃ¿Õ¼ä
 {
-    Clear();                                // ï¿½Í·Å±ß½ï¿½ï¿½
-	delete []tag;							// ï¿½Í·Å±ï¿½Ö¾
-	delete []vexTable;						// ï¿½Í·ï¿½ï¿½Ú½Ó±ï¿½
+    Clear();                                // ÊÍ·Å±ß½áµã
+	delete []tag;							// ÊÍ·Å±êÖ¾
+	delete []vexTable;						// ÊÍ·ÅÁÚ½Ó±í
 }
 
 template <class ElemType, class WeightType>
 void AdjListUnDirNetwork<ElemType, WeightType>::Clear()
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ÐµÄ±ß½ï¿½ã£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª0.
+// ²Ù×÷½á¹û£ºÊÍ·ÅËùÓÐµÄ±ß½áµã£¬²¢°ÑÎÞÏòÍøµÄ¶¥µãÊýºÍ±ßÊýÉèÖÃÎª0.
 {
 	AdjListNetworkArc<WeightType> *p;
-	for (int v = 0; v < vexNum; v++)	{	// ï¿½Í·Å±ß½ï¿½ï¿½
+	for (int v = 0; v < vexNum; v++)	{	// ÊÍ·Å±ß½áµã
 	    p = vexTable[v].firstarc;
 	    while (p != NULL) {
 			vexTable[v].firstarc = p->nextarc;
@@ -130,14 +130,14 @@ void AdjListUnDirNetwork<ElemType, WeightType>::Clear()
 
 template <class ElemType, class WeightType>
 bool AdjListUnDirNetwork<ElemType, WeightType>::IsEmpty()
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Õ·ï¿½ï¿½ï¿½true,ï¿½ï¿½ï¿½ò·µ»ï¿½false.
+// ²Ù×÷½á¹û£ºÈç¹ûÎÞÏòÍøÎª¿Õ·µ»Øtrue,·ñÔò·µ»Øfalse.
 {
 	return vexNum == 0;
 }
 
 template <class ElemType, class WeightType>
 int AdjListUnDirNetwork<ElemType, WeightType>::GetOrder(ElemType &d) const
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó¶¥µï¿½dï¿½ï¿½ï¿½ï¿½ï¿½.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å´ï¿½0ï¿½ï¿½Ê¼ï¿½ï¿½Í¼ï¿½Ð²ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½dÊ±ï¿½ï¿½ï¿½ï¿½-1. 
+// ²Ù×÷½á¹û£ºÇó¶¥µãdµÄÐòºÅ.¶¥µãµÄÐòºÅ´Ó0¿ªÊ¼£¬Í¼ÖÐ²»´æÔÚ¶¥µãdÊ±·µ»Ø-1. 
 {
     int v;
     for (v = 0; v < vexNum; v++)
@@ -145,99 +145,99 @@ int AdjListUnDirNetwork<ElemType, WeightType>::GetOrder(ElemType &d) const
            break;
            
 	if (v < 0 || v >= vexNum)
-		return -1;	// ï¿½ï¿½ï¿½ï¿½dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½-1
+		return -1;	// ¶¥µãd²»´æÔÚ,·µ»Ø-1
 	else
-		return v;	// ï¿½ï¿½ï¿½ï¿½dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+		return v;	// ¶¥µãd²»´æÔÚ,·µ»ØËüµÄÐòºÅ 
 }	
 
 template <class ElemType, class WeightType>
 Status AdjListUnDirNetwork<ElemType, WeightType>::GetElem(int v, ElemType &d) const
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªvï¿½Ä¶ï¿½ï¿½ï¿½Öµ, vï¿½ï¿½È¡Öµï¿½ï¿½Î§Îª0 ï¿½ï¿½ v ï¿½ï¿½ vexNum, vï¿½Ï·ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
-//	Í¨ï¿½ï¿½dÈ¡ï¿½Ã¶ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ENTRY_FOUNDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NOT_PRESENT
+// ²Ù×÷½á¹û£ºÇóÐòºÅÎªvµÄ¶¥µãÖµ, vµÄÈ¡Öµ·¶Î§Îª0 ¡Ü v £¼ vexNum, vºÏ·¨Ê±º¯Êý
+//	Í¨¹ýdÈ¡µÃ¶¥µãÖµ£¬²¢·µ»ØENTRY_FOUND£»·ñÔòº¯Êý·µ»ØNOT_PRESENT
 {
 	if (v < 0 || v >= vexNum)
-		return NOT_PRESENT;			// Ôªï¿½Ø²ï¿½ï¿½ï¿½ï¿½ï¿½
+		return NOT_PRESENT;			// ÔªËØ²»´æÔÚ
 	else	{
-		d = vexTable[v].data;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½vï¿½ï¿½Ôªï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½d
-		return ENTRY_FOUND;			// Ôªï¿½Ø´ï¿½ï¿½ï¿½
+		d = vexTable[v].data;		// ½«¶¥µãvµÄÔªËØÖµ¸³¸ød
+		return ENTRY_FOUND;			// ÔªËØ´æÔÚ
 	}
 }	
 
 template <class ElemType, class WeightType>
 Status AdjListUnDirNetwork<ElemType, WeightType>::SetElem(int v, const ElemType &d)
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½Öµvï¿½ï¿½È¡Öµï¿½ï¿½Î§Îª0 ï¿½ï¿½ v ï¿½ï¿½ vexNum, vï¿½Ï·ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-//	SUCCESS, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½RANGE_ERROR
+// ²Ù×÷½á¹û£ºÉèÖÃ¶¥µãµÄÔªËØÖµvµÄÈ¡Öµ·¶Î§Îª0 ¡Ü v £¼ vexNum, vºÏ·¨Ê±º¯Êý·µ»Ø
+//	SUCCESS, ·ñÔòº¯Êý·µ»ØRANGE_ERROR
 {
 	if (v < 0 || v >= vexNum)
-		return RANGE_ERROR;			// Î»ï¿½Ã´ï¿½
+		return RANGE_ERROR;			// Î»ÖÃ´í
 	else	{
-		vexTable[v].data = d;		// ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½
-		return SUCCESS;				// ï¿½É¹ï¿½
+		vexTable[v].data = d;		// ¶¥µãÔªËØ
+		return SUCCESS;				// ³É¹¦
 	}
 }
 
 template <class ElemType, class WeightType>
 WeightType AdjListUnDirNetwork<ElemType, WeightType>::GetInfinity() const
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ 
+// ²Ù×÷½á¹û£º·µ»ØÎÞÇî´óµÄÖµ 
 {
 	return infinity;
 }
 
 template <class ElemType, class WeightType>
 int AdjListUnDirNetwork<ElemType, WeightType>::GetVexNum() const
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½			 
+// ²Ù×÷½á¹û£º·µ»Ø¶¥µã¸öÊý			 
 {
 	return vexNum;
 }
 
 template <class ElemType, class WeightType>
 int AdjListUnDirNetwork<ElemType, WeightType>::GetArcNum() const
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+// ²Ù×÷½á¹û£º·µ»Ø±ßÊý¸öÊý
 {
 	return arcNum;
 }		 
 
 template <class ElemType, class WeightType>
 int AdjListUnDirNetwork<ElemType, WeightType>::FirstAdjVex(int v) const
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½vï¿½Äµï¿½Ò»ï¿½ï¿½ï¿½Ú½Óµï¿½			 
+// ²Ù×÷½á¹û£º·µ»Ø¶¥µãvµÄµÚÒ»¸öÁÚ½Óµã			 
 {
 	if (v < 0 || v >= vexNum)
-       throw Error("vï¿½ï¿½ï¿½Ï·ï¿½!");// ï¿½×³ï¿½ï¿½ì³£
+       throw Error("v²»ºÏ·¨!");// Å×³öÒì³£
 
 	if (vexTable[v].firstarc == NULL)
-	   return -1;              // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú½Óµï¿½
+	   return -1;              // ²»´æÔÚÁÚ½Óµã
 	else
 	   return vexTable[v].firstarc->adjVex;
 }
 
 template <class ElemType, class WeightType>
 int AdjListUnDirNetwork<ElemType, WeightType>::NextAdjVex(int v1, int v2) const
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½v1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½v2ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ú½Óµï¿½			 
+// ²Ù×÷½á¹û£º·µ»Ø¶¥µãv1µÄÏà¶ÔÓÚv2µÄÏÂÒ»¸öÁÚ½Óµã			 
 {
 	AdjListNetworkArc<WeightType> *p;
 	if (v1 < 0 || v1 >= vexNum)
-       throw Error("v1ï¿½ï¿½ï¿½Ï·ï¿½!");	// ï¿½×³ï¿½ï¿½ì³£
+       throw Error("v1²»ºÏ·¨!");	// Å×³öÒì³£
 	if (v2 < 0 || v2 >= vexNum)
-       throw Error("v2ï¿½ï¿½ï¿½Ï·ï¿½!");	// ï¿½×³ï¿½ï¿½ì³£
+       throw Error("v2²»ºÏ·¨!");	// Å×³öÒì³£
 	if (v1 == v2)
-       throw Error("v1ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½v2!");// ï¿½×³ï¿½ï¿½ì³£
+       throw Error("v1²»ÄÜµÈÓÚv2!");// Å×³öÒì³£
 	
 	p = vexTable[v1].firstarc;
 	while (p != NULL && p->adjVex != v2)
 	    p = p->nextarc;
 
 	if (p == NULL || p->nextarc == NULL)
-		return -1;                   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ú½Óµï¿½
+		return -1;                   // ²»´æÔÚÏÂÒ»¸öÁÚ½Óµã
 	else
 		return p->nextarc->adjVex;
 }
 
 template <class ElemType, class WeightType>
 void AdjListUnDirNetwork<ElemType, WeightType>::InsertVex(const ElemType &d)
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½Ä±ï¿½Î²ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ÖµÎªdï¿½Ä¶ï¿½ï¿½ã¡£			 
+// ²Ù×÷½á¹û£ºÔÚ¶¥µã±íµÄ±íÎ²²åÈëÔªËØÖµÎªdµÄ¶¥µã¡£			 
 {
 	if (vexNum == vexMaxNum)
-       throw Error("Í¼ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!");	// ï¿½×³ï¿½ï¿½ì³£
+       throw Error("Í¼µÄ¶¥µãÊý²»ÄÜ³¬¹ýÔÊÐíµÄ×î´óÊý!");	// Å×³öÒì³£
 
 	vexTable[vexNum].data = d;
 	vexTable[vexNum].firstarc = NULL;
@@ -247,16 +247,16 @@ void AdjListUnDirNetwork<ElemType, WeightType>::InsertVex(const ElemType &d)
 
 template <class ElemType, class WeightType>
 void AdjListUnDirNetwork<ElemType, WeightType>::InsertArc(int v1, int v2, WeightType w)  // 0 1 2
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë¶¥ï¿½ï¿½Îªv1ï¿½ï¿½v2,È¨Îªwï¿½Ä±ï¿½			 
+// ²Ù×÷½á¹û£º²åÈë¶¥µãÎªv1ºÍv2,È¨ÎªwµÄ±ß			 
 {
 	if (v1 < 0 || v1 >= vexNum)
-       throw Error("v1ï¿½ï¿½ï¿½Ï·ï¿½!");	// ï¿½×³ï¿½ï¿½ì³£
+       throw Error("v1²»ºÏ·¨!");	// Å×³öÒì³£
 	if (v2 < 0 || v2 >= vexNum)
-       throw Error("v2ï¿½ï¿½ï¿½Ï·ï¿½!");	// ï¿½×³ï¿½ï¿½ì³£
+       throw Error("v2²»ºÏ·¨!");	// Å×³öÒì³£
 	if (v1 == v2)
-       throw Error("v1ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½v2!");// ï¿½×³ï¿½ï¿½ì³£
+       throw Error("v1²»ÄÜµÈÓÚv2!");// Å×³öÒì³£
 	if (w == infinity)
-       throw Error("wï¿½ï¿½ï¿½ï¿½Îªï¿½Þ¿Õ´ï¿½!");// ï¿½×³ï¿½ï¿½ì³£
+       throw Error("w²»ÄÜÎªÎÞ¿Õ´ó!");// Å×³öÒì³£
 
 	AdjListNetworkArc<WeightType> *p, *q, *firstarc;
 	p = vexTable[v1].firstarc;
@@ -269,7 +269,7 @@ void AdjListUnDirNetwork<ElemType, WeightType>::InsertArc(int v1, int v2, Weight
 
 template <class ElemType, class WeightType>
 void AdjListUnDirNetwork<ElemType, WeightType>::DeleteVex(const ElemType &d)
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½Ôªï¿½ï¿½ÖµÎªdï¿½Ä¶ï¿½ï¿½ï¿½			 
+// ²Ù×÷½á¹û£ºÉ¾³ýÔªËØÖµÎªdµÄ¶¥µã			 
 {
     int v;
     AdjListNetworkArc<WeightType> *p, *q;
@@ -277,13 +277,13 @@ void AdjListUnDirNetwork<ElemType, WeightType>::DeleteVex(const ElemType &d)
        if	(vexTable[v].data == d)
            break;
 	if (v == vexNum)
-       throw Error("Í¼ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÉ¾ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½!");	// ï¿½×³ï¿½ï¿½ì³£
+       throw Error("Í¼ÖÐ²»´æÔÚÒªÉ¾³ýµÄ¶¥µã!");	// Å×³öÒì³£
 
-    for (int u = 0; u < vexNum; u++)           // É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½dï¿½Ä»ï¿½ 
+    for (int u = 0; u < vexNum; u++)           // É¾³ýµ½´ïdµÄ»¡ 
        if (u != v) 
           DeleteArc(u, v); 
           
-	p = vexTable[v].firstarc;                  // É¾ï¿½ï¿½ï¿½ï¿½dï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ 
+	p = vexTable[v].firstarc;                  // É¾³ý´Ód³ö·¢µÄ»¡ 
 	while (p != NULL) {
         vexTable[v].firstarc = p->nextarc;
         delete p;    
@@ -310,14 +310,14 @@ void AdjListUnDirNetwork<ElemType, WeightType>::DeleteVex(const ElemType &d)
 
 template <class ElemType, class WeightType>
 void AdjListUnDirNetwork<ElemType, WeightType>::DeleteArc(int v1, int v2)
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªv1ï¿½ï¿½v2ï¿½Ä±ï¿½			 
+// ²Ù×÷½á¹û£ºÉ¾³ý¶¥µãÎªv1ºÍv2µÄ±ß			 
 {
 	if (v1 < 0 || v1 >= vexNum)
-       throw Error("v1ï¿½ï¿½ï¿½Ï·ï¿½!");	// ï¿½×³ï¿½ï¿½ì³£
+       throw Error("v1²»ºÏ·¨!");	// Å×³öÒì³£
 	if (v2 < 0 || v2 >= vexNum)
-       throw Error("v2ï¿½ï¿½ï¿½Ï·ï¿½!");	// ï¿½×³ï¿½ï¿½ì³£
+       throw Error("v2²»ºÏ·¨!");	// Å×³öÒì³£
 	if (v1 == v2) throw
-       Error("v1ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½v2!");		// ï¿½×³ï¿½ï¿½ì³£
+       Error("v1²»ÄÜµÈÓÚv2!");		// Å×³öÒì³£
 
 	AdjListNetworkArc<WeightType> *p, *q;
 	p = vexTable[v1].firstarc;
@@ -333,83 +333,71 @@ void AdjListUnDirNetwork<ElemType, WeightType>::DeleteArc(int v1, int v2)
         delete p;    
 		arcNum--;
 	}
-    p = vexTable[v2].firstarc;
-    while (p != NULL && p->adjVex != v1) {
-        q = p;
-        p = p->nextarc;
-    }
-    if (p != NULL) {
-        if (vexTable[v2].firstarc == p)
-            vexTable[v2].firstarc = p->nextarc;
-        else
-            q->nextarc = p->nextarc;
-        delete p;
-    }
 }
 
 template <class ElemType, class WeightType>
 WeightType AdjListUnDirNetwork<ElemType, WeightType>::GetWeight(int v1, int v2) const
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½Îªv1ï¿½ï¿½v2ï¿½Ä±ßµï¿½È¨Öµ
+// ²Ù×÷½á¹û£º·µ»Ø¶¥µãÎªv1ºÍv2µÄ±ßµÄÈ¨Öµ
 {
 	if (v1 < 0 || v1 >= vexNum)
-       throw Error("v1ï¿½ï¿½ï¿½Ï·ï¿½!");	// ï¿½×³ï¿½ï¿½ì³£
+       throw Error("v1²»ºÏ·¨!");	// Å×³öÒì³£
 	if (v2 < 0 || v2 >= vexNum)
-       throw Error("v2ï¿½ï¿½ï¿½Ï·ï¿½!");	// ï¿½×³ï¿½ï¿½ì³£
+       throw Error("v2²»ºÏ·¨!");	// Å×³öÒì³£
 
 	AdjListNetworkArc<WeightType> *p;
 	p = vexTable[v1].firstarc;
 	while (p != NULL && p->adjVex != v2) 
        p = p->nextarc;
     if (p != NULL)
-	   return p->weight;			// ï¿½ï¿½ï¿½ï¿½È¨Öµ
+	   return p->weight;			// ·µ»ØÈ¨Öµ
 	else
-	   return infinity;				// ï¿½ï¿½ï¿½ï¿½È¨ÖµÎªinfinityï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ß²ï¿½ï¿½ï¿½ï¿½ï¿½
+	   return infinity;				// ·µ»ØÈ¨ÖµÎªinfinity£¬±íÊ¾±ß²»´æÔÚ
 }
 
 template <class ElemType, class WeightType>
 void AdjListUnDirNetwork<ElemType, WeightType>::SetWeight(int v1, int v2, WeightType w)
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½Îªv1ï¿½ï¿½v2ï¿½Ä±ßµï¿½È¨Öµ
+// ²Ù×÷½á¹û£ºÉèÖÃ¶¥µãÎªv1ºÍv2µÄ±ßµÄÈ¨Öµ
 {
 	if (v1 < 0 || v1 >= vexNum)
-       throw Error("v1ï¿½ï¿½ï¿½Ï·ï¿½!");        // ï¿½×³ï¿½ï¿½ì³£
+       throw Error("v1²»ºÏ·¨!");        // Å×³öÒì³£
 	if (v2 < 0 || v2 >= vexNum)
-       throw Error("v2ï¿½ï¿½ï¿½Ï·ï¿½!");	    // ï¿½×³ï¿½ï¿½ì³£
+       throw Error("v2²»ºÏ·¨!");	    // Å×³öÒì³£
 	if (v1 == v2)
-       throw Error("v1ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½v2!");    // ï¿½×³ï¿½ï¿½ì³£
+       throw Error("v1²»ÄÜµÈÓÚv2!");    // Å×³öÒì³£
 	if (w == infinity)
-       throw Error("wï¿½ï¿½ï¿½ï¿½Îªï¿½Þ¿Õ´ï¿½!");   // ï¿½×³ï¿½ï¿½ì³£
+       throw Error("w²»ÄÜÎªÎÞ¿Õ´ó!");   // Å×³öÒì³£
 
 	AdjListNetworkArc<WeightType> *p;
 	p = vexTable[v1].firstarc;
 	while (p != NULL && p->adjVex != v2)
        p = p->nextarc;
     if (p != NULL)
-	   p->weight = w;		            // ï¿½Þ¸ï¿½È¨Öµ
+	   p->weight = w;		            // ÐÞ¸ÄÈ¨Öµ
 }
 
 template <class ElemType, class WeightType>
 Status AdjListUnDirNetwork<ElemType, WeightType>::GetTag(int v) const
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½vï¿½Ä±ï¿½Ö¾		 
+// ²Ù×÷½á¹û£º·µ»Ø¶¥µãvµÄ±êÖ¾		 
 {
 	if (v < 0 || v >= vexNum)
-       throw Error("vï¿½ï¿½ï¿½Ï·ï¿½!");		// ï¿½×³ï¿½ï¿½ì³£
+       throw Error("v²»ºÏ·¨!");		// Å×³öÒì³£
 
 	return tag[v];
 }
 
 template <class ElemType, class WeightType>
 void AdjListUnDirNetwork<ElemType, WeightType>::SetTag(int v, Status val) const
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½vï¿½Ä±ï¿½Ö¾Îªval		 
+// ²Ù×÷½á¹û£ºÉèÖÃ¶¥µãvµÄ±êÖ¾Îªval		 
 {
 	if (v < 0 || v >= vexNum)
-       throw Error("vï¿½ï¿½ï¿½Ï·ï¿½!");		// ï¿½×³ï¿½ï¿½ì³£
+       throw Error("v²»ºÏ·¨!");		// Å×³öÒì³£
 
 	tag[v] = val;
 }
 
 template <class ElemType, class WeightType>
 AdjListUnDirNetwork<ElemType, WeightType>::AdjListUnDirNetwork(const AdjListUnDirNetwork<ElemType, WeightType> &copy)
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú½Ó¾ï¿½ï¿½ï¿½copyï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú½Ó¾ï¿½ï¿½ï¿½copyï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¹ï¿½ï¿½ìº¯ï¿½ï¿½
+// ²Ù×÷½á¹û£ºÓÉÎÞÏòÍøµÄÁÚ½Ó¾ØÕócopy¹¹ÔìÐÂÎÞÏòÍøµÄÁÚ½Ó¾ØÕócopy¡ª¡ª¸´ÖÆ¹¹Ôìº¯Êý
 {
 	AdjListNetworkArc<WeightType> *p, *q;
 	infinity =copy.infinity;
@@ -440,13 +428,13 @@ AdjListUnDirNetwork<ElemType, WeightType>::AdjListUnDirNetwork(const AdjListUnDi
 
 template <class ElemType, class WeightType>
 AdjListUnDirNetwork<ElemType, WeightType> &AdjListUnDirNetwork<ElemType, WeightType>::operator =(const AdjListUnDirNetwork<ElemType, WeightType> &copy)
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú½Ó¾ï¿½ï¿½ï¿½copyï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú½Ó¾ï¿½ï¿½ó¡ª¡ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+// ²Ù×÷½á¹û£º½«ÎÞÏòÍøµÄÁÚ½Ó¾ØÕócopy¸³Öµ¸øµ±Ç°ÎÞÏòÍøµÄÁÚ½Ó¾ØÕó¡ª¡ª¸³ÖµÓï¾äÖØÔØ
 {
 	if (&copy != this)
 	{
-        Clear();                                    // ï¿½Í·Åµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½
-	    delete []tag;								// ï¿½Í·Åµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½
-	    delete []vexTable;							// ï¿½Í·Åµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        Clear();                                    // ÊÍ·Åµ±Ç°ÎÞÏòÍø±ß½áµã
+	    delete []tag;								// ÊÍ·Åµ±Ç°ÎÞÏòÍø±êÖ¾Êý×é
+	    delete []vexTable;							// ÊÍ·Åµ±Ç°ÎÞÏòÍø¶¥µã±í
 
 	    AdjListNetworkArc<WeightType> *p, *q;
 	    infinity =copy.infinity;
@@ -479,12 +467,12 @@ AdjListUnDirNetwork<ElemType, WeightType> &AdjListUnDirNetwork<ElemType, WeightT
 
 template <class ElemType, class WeightType>
 void AdjListUnDirNetwork<ElemType, WeightType>::Display()
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: ï¿½ï¿½Ê¾ï¿½Ú½Ó¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+// ²Ù×÷½á¹û: ÏÔÊ¾ÁÚ½Ó¾ØÕóÎÞÏòÍø
 {
 	AdjListNetworkArc<WeightType> *p;
-    cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << vexNum << "ï¿½ï¿½ï¿½ï¿½ï¿½ã£¬" << arcNum << "ï¿½ï¿½ï¿½ß¡ï¿½" << endl;
-	for (int v = 0; v < vexNum; v++)	{	// ï¿½ï¿½Ê¾ï¿½ï¿½vï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½
-		cout << v << ":\t" << vexTable[v].data;				// ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½
+    cout << "ÎÞÏòÍø¹²ÓÐ" << vexNum << "¸ö¶¥µã£¬" << arcNum << "Ìõ±ß¡£" << endl;
+	for (int v = 0; v < vexNum; v++)	{	// ÏÔÊ¾µÚv¸öÁÚ½ÓÁ´±í
+		cout << v << ":\t" << vexTable[v].data;				// ÏÔÊ¾¶¥µãºÅ
 	    p = vexTable[v].firstarc;
 	    while (p != NULL) {
         	cout << "-->(" << p->adjVex << "," << p->weight << ")";
@@ -499,7 +487,7 @@ int AdjListUnDirNetwork<ElemType, WeightType>::CountDegree(int v) const
 {
     AdjListNetworkArc<WeightType> *p;
     int cnt = 0;
-    cout << v << ":\t" << vexTable[v].data;				// ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½
+    cout << v << ":\t" << vexTable[v].data;				// ÏÔÊ¾¶¥µãºÅ
     p = vexTable[v].firstarc;
     while (p != NULL)
     {
