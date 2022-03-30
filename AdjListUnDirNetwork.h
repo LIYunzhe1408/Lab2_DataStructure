@@ -35,10 +35,12 @@ public:
 	int GetArcNum() const;						 // 求无向网的边数个数
 	int FirstAdjVex(int v) const;				 // 求无向网中顶点v的第一个邻接点
 	int NextAdjVex(int v1, int v2) const;		 // 求无向网中顶点v1的相对于v2的下一个邻接点
+	int ConnectedComponent();
 	void InsertVex(const ElemType &d);			 // 插入元素值为d的顶点		 
 	void InsertArc(int v1, int v2, WeightType w);// 插入从顶点为v1到v2、权为w的边			 
 	void DeleteVex(const ElemType &d);			 // 删除元素值为d的顶点			 
-	void DeleteArc(int v1, int v2);			     // 删除从顶点为v1到v2的边			 
+	void DeleteArc(int v1, int v2);			     // 删除从顶点为v1到v2的边
+    void DFS(int v);
 	WeightType GetWeight(int v1, int v2) const;	 // 求从顶点为v1到v2的边的权值
 	void SetWeight(int v1, int v2, WeightType w);// 设置从顶点为v1到v2的边的权值
 	Status GetTag(int v) const;				     // 求顶点v的标志		 
@@ -508,6 +510,37 @@ int AdjListUnDirNetwork<ElemType, WeightType>::CountDegree(int v) const
     }
     cout << "'s degree = " << cnt << endl;
     return cnt;
+}
+
+template<class ElemType, class WeightType>
+void AdjListUnDirNetwork<ElemType, WeightType>::DFS(int v) {
+    if(tag[v] == VISITED)
+        return;
+    SetTag(v,VISITED);
+    AdjListNetworkArc<WeightType> *temp;
+    temp = vexTable[v].firstarc;
+    while(temp){
+        if(tag[temp->adjVex] != VISITED){
+            DFS(temp->adjVex);
+        }
+        temp = temp->nextarc;
+    }
+}
+
+template<class ElemType, class WeightType>
+int AdjListUnDirNetwork<ElemType, WeightType>::ConnectedComponent() {
+    if (IsEmpty())
+        return 0;
+    int num = 0;
+    for(int i = 0;i<GetVexNum();i++){
+        if(tag[i] != VISITED){
+            DFS(i);
+            num++;
+        }
+    }
+    for(int i = 0;i<GetVexNum();i++)
+        tag[i] = UNVISITED;
+    return num;
 }
 
 #endif

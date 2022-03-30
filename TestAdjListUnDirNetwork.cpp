@@ -8,8 +8,8 @@ int main(void)
 		int infity = DEFAULT_INFINITY;
 		char vexs[] = {'A', 'B', 'C', 'D'};
 		int m[4][4] = {
-			{infity, 2, 3, 4},
-			{2, infity, 5, 6},
+			{infity, 1, infity, infity},
+			{2, infity, infity, infity},
 			{3, 5, infity, 7},
 			{4, 6, 7, infity}
 		};
@@ -25,7 +25,7 @@ int main(void)
 	    while (c != '0')	{
             cout << endl << "1. 无向网清空.";
             cout << endl << "2. 显示无向网.";
-            cout << endl << "3. 取指定顶点的值.";
+            cout << endl << "3. 输出连通分支数.";
             cout << endl << "4. 设置指定顶点的值.";
             cout << endl << "5. 删除顶点.";
             cout << endl << "6. 插入顶点.";
@@ -47,10 +47,7 @@ int main(void)
 			            net.Display();
 				    break;
 			    case '3':
-			        cout << endl << "输入顶点序号（无向网的顶点序号从0开始）:";
-			        cin >> v;
-		            net.GetElem(v, e);
-		            cout << "序号为" << v << "的顶点为" << e;
+		            cout << endl <<"连通分支数为" <<net.ConnectedComponent() ;
 			        break;
 			    case '4':
 			        cout << endl << "输入顶点序号（无向网的顶点序号从0开始）:";
