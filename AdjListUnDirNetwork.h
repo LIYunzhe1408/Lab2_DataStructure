@@ -1,12 +1,12 @@
 #ifndef __ADJ_LIST_GRAPH_H__
 #define __ADJ_LIST_GRAPH_H__
 
-#include "AdjListDirNetworkArc.h"			// 网络邻接表的边结点类
-#include "AdjListDirNetworkVex.h"			// 网络邻接表的顶点结点类
+#include "AdjListUnDirNetworkArc.h"			// 网络邻接表的边结点类
+#include "AdjListUnDirNetworkVex.h"            // 网络邻接表的顶点结点类
 
-// 有向网的邻接表类
+// 无向网的邻接表类
 template <class ElemType, class WeightType>
-class AdjListDirNetwork
+class AdjListUnDirNetwork
 {
 protected:
 // 邻接表的数据成员:
@@ -17,24 +17,24 @@ protected:
 
 public:
 // 抽象数据类型方法声明及重载编译系统默认方法声明:
-	AdjListDirNetwork(ElemType es[], int vertexNum, int vertexMaxNum = DEFAULT_SIZE, 
+	AdjListUnDirNetwork(ElemType es[], int vertexNum, int vertexMaxNum = DEFAULT_SIZE,
 		WeightType infinit = (WeightType)DEFAULT_INFINITY);
 		// 以数组es[]为顶点数据,顶点个数为vertexNum,允许的顶点最大数目为vertexMaxNum,
-        // infinit表示无穷大,边数为0构造有向网
-	AdjListDirNetwork(int vertexMaxNum = DEFAULT_SIZE, 
+        // infinit表示无穷大,边数为0构造有无向网
+	AdjListUnDirNetwork(int vertexMaxNum = DEFAULT_SIZE,
 		WeightType infinit = (WeightType)DEFAULT_INFINITY);
-		// 构造允许的顶点最大数目为vertexMaxNum,infinit表示无穷大,边数为0的有向网
-	~AdjListDirNetwork();						 // 析构函数
-	void Clear();			                     // 清空有向网			 
-	bool IsEmpty();                              // 判断有向网是否为空 
+		// 构造允许的顶点最大数目为vertexMaxNum,infinit表示无穷大,边数为0的无向网
+	~AdjListUnDirNetwork();						 // 析构函数
+	void Clear();			                     // 清空无向网
+	bool IsEmpty();                              // 判断无向网是否为空
 	int GetOrder(ElemType &d) const;             // 求顶点的序号	
 	Status GetElem(int v, ElemType &d) const;    // 求顶点的元素值	
 	Status SetElem(int v, const ElemType &d);    // 设置顶点的元素值
 	WeightType GetInfinity() const;				 // 取无穷大的值			 
-	int GetVexNum() const;						 // 求有向网的顶点个数			 
-	int GetArcNum() const;						 // 求有向网的边数个数			 
-	int FirstAdjVex(int v) const;				 // 求有向网中顶点v的第一个邻接点			 
-	int NextAdjVex(int v1, int v2) const;		 // 求有向网中顶点v1的相对于v2的下一个邻接点			 
+	int GetVexNum() const;						 // 求无向网的顶点个数
+	int GetArcNum() const;						 // 求无向网的边数个数
+	int FirstAdjVex(int v) const;				 // 求无向网中顶点v的第一个邻接点
+	int NextAdjVex(int v1, int v2) const;		 // 求无向网中顶点v1的相对于v2的下一个邻接点
 	void InsertVex(const ElemType &d);			 // 插入元素值为d的顶点		 
 	void InsertArc(int v1, int v2, WeightType w);// 插入从顶点为v1到v2、权为w的边			 
 	void DeleteVex(const ElemType &d);			 // 删除元素值为d的顶点			 
@@ -46,24 +46,24 @@ public:
 
 
 	// TODO
-	int CountDegree() const;
+	int CountDegree(int v) const;
 	int ConnectedComponent() const;
 	void Prim();     // 代码已有
 	void Kruskal();  // 代码已有
 	void BreakCycle(); // 破圈
 	bool hasUniqueMinTree();
 
-	AdjListDirNetwork(const AdjListDirNetwork<ElemType, WeightType> &copy);	// 复制构造函数
-	AdjListDirNetwork<ElemType, WeightType> &operator =
-		(const AdjListDirNetwork<ElemType, WeightType> &copy); // 重载赋值运算符 
-    void Display();	// 显示有向网邻接表 
+	AdjListUnDirNetwork(const AdjListUnDirNetwork<ElemType, WeightType> &copy);	// 复制构造函数
+	AdjListUnDirNetwork<ElemType, WeightType> &operator =
+		(const AdjListUnDirNetwork<ElemType, WeightType> &copy); // 重载赋值运算符
+    void Display();	// 显示无向网邻接表
 };
 
-// 有向网的邻接表类的实现部分
+// 无向网的邻接表类的实现部分
 template <class ElemType, class WeightType>
-AdjListDirNetwork<ElemType, WeightType>::AdjListDirNetwork(ElemType es[],
+AdjListUnDirNetwork<ElemType, WeightType>::AdjListUnDirNetwork(ElemType es[],
        int vertexNum, int vertexMaxNum, WeightType infinit)
-// 操作结果：构造顶点数据为es[],顶点数为numVex,顶点个数为vertexNum,infinit表示无穷大,边数为0的有向网
+// 操作结果：构造顶点数据为es[],顶点数为numVex,顶点个数为vertexNum,infinit表示无穷大,边数为0的无向网
 {
 	if (vertexMaxNum < 0)
     	throw Error("允许的顶点最大数目不能为负!");        // 抛出异常
@@ -87,8 +87,8 @@ AdjListDirNetwork<ElemType, WeightType>::AdjListDirNetwork(ElemType es[],
 }
 
 template <class ElemType, class WeightType>
-AdjListDirNetwork<ElemType, WeightType>::AdjListDirNetwork(int vertexMaxNum, WeightType infinit)
-// 操作结果：构造顶点最大数目为vertexMaxNum,infinit表示无穷大的空有向网
+AdjListUnDirNetwork<ElemType, WeightType>::AdjListUnDirNetwork(int vertexMaxNum, WeightType infinit)
+// 操作结果：构造顶点最大数目为vertexMaxNum,infinit表示无穷大的空无向网
 {
 	if (vertexMaxNum < 0)
     	throw Error("允许的顶点最大数目不能为负!");// 抛出异常
@@ -103,8 +103,8 @@ AdjListDirNetwork<ElemType, WeightType>::AdjListDirNetwork(int vertexMaxNum, Wei
 }
 
 template <class ElemType, class WeightType>
-AdjListDirNetwork<ElemType, WeightType>::~AdjListDirNetwork()
-// 操作结果：释放邻接表有向网所占用空间
+AdjListUnDirNetwork<ElemType, WeightType>::~AdjListUnDirNetwork()
+// 操作结果：释放邻接表无向网所占用空间
 {
     Clear();                                // 释放边结点
 	delete []tag;							// 释放标志
@@ -112,8 +112,8 @@ AdjListDirNetwork<ElemType, WeightType>::~AdjListDirNetwork()
 }
 
 template <class ElemType, class WeightType>
-void AdjListDirNetwork<ElemType, WeightType>::Clear()
-// 操作结果：释放所有的边结点，并把有向网的顶点数和边数设置为0.			 
+void AdjListUnDirNetwork<ElemType, WeightType>::Clear()
+// 操作结果：释放所有的边结点，并把无向网的顶点数和边数设置为0.
 {
 	AdjListNetworkArc<WeightType> *p;
 	for (int v = 0; v < vexNum; v++)	{	// 释放边结点
@@ -129,14 +129,14 @@ void AdjListDirNetwork<ElemType, WeightType>::Clear()
 }
 
 template <class ElemType, class WeightType>
-bool AdjListDirNetwork<ElemType, WeightType>::IsEmpty()
-// 操作结果：如果有向网为空返回true,否则返回false.
+bool AdjListUnDirNetwork<ElemType, WeightType>::IsEmpty()
+// 操作结果：如果无向网为空返回true,否则返回false.
 {
 	return vexNum == 0;
 }
 
 template <class ElemType, class WeightType>
-int AdjListDirNetwork<ElemType, WeightType>::GetOrder(ElemType &d) const
+int AdjListUnDirNetwork<ElemType, WeightType>::GetOrder(ElemType &d) const
 // 操作结果：求顶点d的序号.顶点的序号从0开始，图中不存在顶点d时返回-1. 
 {
     int v;
@@ -151,7 +151,7 @@ int AdjListDirNetwork<ElemType, WeightType>::GetOrder(ElemType &d) const
 }	
 
 template <class ElemType, class WeightType>
-Status AdjListDirNetwork<ElemType, WeightType>::GetElem(int v, ElemType &d) const
+Status AdjListUnDirNetwork<ElemType, WeightType>::GetElem(int v, ElemType &d) const
 // 操作结果：求序号为v的顶点值, v的取值范围为0 ≤ v ＜ vexNum, v合法时函数
 //	通过d取得顶点值，并返回ENTRY_FOUND；否则函数返回NOT_PRESENT
 {
@@ -164,7 +164,7 @@ Status AdjListDirNetwork<ElemType, WeightType>::GetElem(int v, ElemType &d) cons
 }	
 
 template <class ElemType, class WeightType>
-Status AdjListDirNetwork<ElemType, WeightType>::SetElem(int v, const ElemType &d)
+Status AdjListUnDirNetwork<ElemType, WeightType>::SetElem(int v, const ElemType &d)
 // 操作结果：设置顶点的元素值v的取值范围为0 ≤ v ＜ vexNum, v合法时函数返回
 //	SUCCESS, 否则函数返回RANGE_ERROR
 {
@@ -177,28 +177,28 @@ Status AdjListDirNetwork<ElemType, WeightType>::SetElem(int v, const ElemType &d
 }
 
 template <class ElemType, class WeightType>
-WeightType AdjListDirNetwork<ElemType, WeightType>::GetInfinity() const
+WeightType AdjListUnDirNetwork<ElemType, WeightType>::GetInfinity() const
 // 操作结果：返回无穷大的值 
 {
 	return infinity;
 }
 
 template <class ElemType, class WeightType>
-int AdjListDirNetwork<ElemType, WeightType>::GetVexNum() const
+int AdjListUnDirNetwork<ElemType, WeightType>::GetVexNum() const
 // 操作结果：返回顶点个数			 
 {
 	return vexNum;
 }
 
 template <class ElemType, class WeightType>
-int AdjListDirNetwork<ElemType, WeightType>::GetArcNum() const
+int AdjListUnDirNetwork<ElemType, WeightType>::GetArcNum() const
 // 操作结果：返回边数个数
 {
 	return arcNum;
 }		 
 
 template <class ElemType, class WeightType>
-int AdjListDirNetwork<ElemType, WeightType>::FirstAdjVex(int v) const
+int AdjListUnDirNetwork<ElemType, WeightType>::FirstAdjVex(int v) const
 // 操作结果：返回顶点v的第一个邻接点			 
 {
 	if (v < 0 || v >= vexNum)
@@ -211,7 +211,7 @@ int AdjListDirNetwork<ElemType, WeightType>::FirstAdjVex(int v) const
 }
 
 template <class ElemType, class WeightType>
-int AdjListDirNetwork<ElemType, WeightType>::NextAdjVex(int v1, int v2) const
+int AdjListUnDirNetwork<ElemType, WeightType>::NextAdjVex(int v1, int v2) const
 // 操作结果：返回顶点v1的相对于v2的下一个邻接点			 
 {
 	AdjListNetworkArc<WeightType> *p;
@@ -233,7 +233,7 @@ int AdjListDirNetwork<ElemType, WeightType>::NextAdjVex(int v1, int v2) const
 }
 
 template <class ElemType, class WeightType>
-void AdjListDirNetwork<ElemType, WeightType>::InsertVex(const ElemType &d)
+void AdjListUnDirNetwork<ElemType, WeightType>::InsertVex(const ElemType &d)
 // 操作结果：在顶点表的表尾插入元素值为d的顶点。			 
 {
 	if (vexNum == vexMaxNum)
@@ -246,7 +246,7 @@ void AdjListDirNetwork<ElemType, WeightType>::InsertVex(const ElemType &d)
 }
 
 template <class ElemType, class WeightType>
-void AdjListDirNetwork<ElemType, WeightType>::InsertArc(int v1, int v2, WeightType w)
+void AdjListUnDirNetwork<ElemType, WeightType>::InsertArc(int v1, int v2, WeightType w)  // 0 1 2
 // 操作结果：插入顶点为v1和v2,权为w的边			 
 {
 	if (v1 < 0 || v1 >= vexNum)
@@ -258,14 +258,17 @@ void AdjListDirNetwork<ElemType, WeightType>::InsertArc(int v1, int v2, WeightTy
 	if (w == infinity)
        throw Error("w不能为无空大!");// 抛出异常
 
-	AdjListNetworkArc<WeightType> *p, *q;
+	AdjListNetworkArc<WeightType> *p, *q, *firstarc;
 	p = vexTable[v1].firstarc;
-    vexTable[v1].firstarc = new AdjListNetworkArc<WeightType>(v2, w, p);
-	arcNum++;
+    firstarc = new AdjListNetworkArc<WeightType>(v2, w, p);
+    vexTable[v1].firstarc = firstarc;
+    q = vexTable[firstarc->adjVex].firstarc;
+    vexTable[firstarc->adjVex].firstarc = new AdjListNetworkArc<WeightType>(v1, w, q);
+	arcNum += 1;
 }
 
 template <class ElemType, class WeightType>
-void AdjListDirNetwork<ElemType, WeightType>::DeleteVex(const ElemType &d)
+void AdjListUnDirNetwork<ElemType, WeightType>::DeleteVex(const ElemType &d)
 // 操作结果：删除元素值为d的顶点			 
 {
     int v;
@@ -306,7 +309,7 @@ void AdjListDirNetwork<ElemType, WeightType>::DeleteVex(const ElemType &d)
 }
 
 template <class ElemType, class WeightType>
-void AdjListDirNetwork<ElemType, WeightType>::DeleteArc(int v1, int v2)
+void AdjListUnDirNetwork<ElemType, WeightType>::DeleteArc(int v1, int v2)
 // 操作结果：删除顶点为v1和v2的边			 
 {
 	if (v1 < 0 || v1 >= vexNum)
@@ -333,7 +336,7 @@ void AdjListDirNetwork<ElemType, WeightType>::DeleteArc(int v1, int v2)
 }
 
 template <class ElemType, class WeightType>
-WeightType AdjListDirNetwork<ElemType, WeightType>::GetWeight(int v1, int v2) const
+WeightType AdjListUnDirNetwork<ElemType, WeightType>::GetWeight(int v1, int v2) const
 // 操作结果：返回顶点为v1和v2的边的权值
 {
 	if (v1 < 0 || v1 >= vexNum)
@@ -352,7 +355,7 @@ WeightType AdjListDirNetwork<ElemType, WeightType>::GetWeight(int v1, int v2) co
 }
 
 template <class ElemType, class WeightType>
-void AdjListDirNetwork<ElemType, WeightType>::SetWeight(int v1, int v2, WeightType w)
+void AdjListUnDirNetwork<ElemType, WeightType>::SetWeight(int v1, int v2, WeightType w)
 // 操作结果：设置顶点为v1和v2的边的权值
 {
 	if (v1 < 0 || v1 >= vexNum)
@@ -373,7 +376,7 @@ void AdjListDirNetwork<ElemType, WeightType>::SetWeight(int v1, int v2, WeightTy
 }
 
 template <class ElemType, class WeightType>
-Status AdjListDirNetwork<ElemType, WeightType>::GetTag(int v) const
+Status AdjListUnDirNetwork<ElemType, WeightType>::GetTag(int v) const
 // 操作结果：返回顶点v的标志		 
 {
 	if (v < 0 || v >= vexNum)
@@ -383,7 +386,7 @@ Status AdjListDirNetwork<ElemType, WeightType>::GetTag(int v) const
 }
 
 template <class ElemType, class WeightType>
-void AdjListDirNetwork<ElemType, WeightType>::SetTag(int v, Status val) const
+void AdjListUnDirNetwork<ElemType, WeightType>::SetTag(int v, Status val) const
 // 操作结果：设置顶点v的标志为val		 
 {
 	if (v < 0 || v >= vexNum)
@@ -393,8 +396,8 @@ void AdjListDirNetwork<ElemType, WeightType>::SetTag(int v, Status val) const
 }
 
 template <class ElemType, class WeightType>
-AdjListDirNetwork<ElemType, WeightType>::AdjListDirNetwork(const AdjListDirNetwork<ElemType, WeightType> &copy)
-// 操作结果：由有向网的邻接矩阵copy构造新有向网的邻接矩阵copy——复制构造函数
+AdjListUnDirNetwork<ElemType, WeightType>::AdjListUnDirNetwork(const AdjListUnDirNetwork<ElemType, WeightType> &copy)
+// 操作结果：由无向网的邻接矩阵copy构造新无向网的邻接矩阵copy——复制构造函数
 {
 	AdjListNetworkArc<WeightType> *p, *q;
 	infinity =copy.infinity;
@@ -424,14 +427,14 @@ AdjListDirNetwork<ElemType, WeightType>::AdjListDirNetwork(const AdjListDirNetwo
 }
 
 template <class ElemType, class WeightType>
-AdjListDirNetwork<ElemType, WeightType> &AdjListDirNetwork<ElemType, WeightType>::operator =(const AdjListDirNetwork<ElemType, WeightType> &copy)
-// 操作结果：将有向网的邻接矩阵copy赋值给当前有向网的邻接矩阵——赋值语句重载
+AdjListUnDirNetwork<ElemType, WeightType> &AdjListUnDirNetwork<ElemType, WeightType>::operator =(const AdjListUnDirNetwork<ElemType, WeightType> &copy)
+// 操作结果：将无向网的邻接矩阵copy赋值给当前无向网的邻接矩阵——赋值语句重载
 {
 	if (&copy != this)
 	{
-        Clear();                                    // 释放当前有向网边结点
-	    delete []tag;								// 释放当前有向网标志数组 
-	    delete []vexTable;							// 释放当前有向网顶点表 
+        Clear();                                    // 释放当前无向网边结点
+	    delete []tag;								// 释放当前无向网标志数组
+	    delete []vexTable;							// 释放当前无向网顶点表
 
 	    AdjListNetworkArc<WeightType> *p, *q;
 	    infinity =copy.infinity;
@@ -463,11 +466,11 @@ AdjListDirNetwork<ElemType, WeightType> &AdjListDirNetwork<ElemType, WeightType>
 }
 
 template <class ElemType, class WeightType>
-void AdjListDirNetwork<ElemType, WeightType>::Display()
-// 操作结果: 显示邻接矩阵有向网
+void AdjListUnDirNetwork<ElemType, WeightType>::Display()
+// 操作结果: 显示邻接矩阵无向网
 {
 	AdjListNetworkArc<WeightType> *p;
-    cout << "有向网共有" << vexNum << "个顶点，" << arcNum << "条边。" << endl; 
+    cout << "无向网共有" << vexNum << "个顶点，" << arcNum << "条边。" << endl;
 	for (int v = 0; v < vexNum; v++)	{	// 显示第v个邻接链表
 		cout << v << ":\t" << vexTable[v].data;				// 显示顶点号
 	    p = vexTable[v].firstarc;
@@ -477,6 +480,22 @@ void AdjListDirNetwork<ElemType, WeightType>::Display()
 		}
 		cout << endl; 
 	}
+}
+
+template<class ElemType,class WeightType>
+int AdjListUnDirNetwork<ElemType, WeightType>::CountDegree(int v) const
+{
+    AdjListNetworkArc<WeightType> *p;
+    int cnt = 0;
+    cout << v << ":\t" << vexTable[v].data;				// 显示顶点号
+    p = vexTable[v].firstarc;
+    while (p != NULL)
+    {
+        p = p->nextarc;
+        ++cnt;
+    }
+    cout << "'s degree = " << cnt << endl;
+    return cnt;
 }
 
 #endif

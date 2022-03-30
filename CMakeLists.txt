@@ -5,9 +5,9 @@ set(CMAKE_CXX_STANDARD 14)
 
 include_directories(.)
 
-add_executable(AdjListDirNetworkVex.h
-        AdjListDirNetworkArc.h
-        AdjListDirNetwork.h
+add_executable(AdjListUnDirNetworkVex.h
+        AdjListUnDirNetworkArc.h
+        AdjListUnDirNetwork.h
         Assistance.h
-        TestAdjListDirNetwork.cpp
+        TestAdjListUnDirNetwork.cpp
 )

@@ -1,5 +1,5 @@
 #include "Assistance.h"					// 辅助软件包
-#include "AdjListDirNetwork.h"		// 邻接表有向网
+#include "AdjListUnDirNetwork.h"		// 邻接表无向网
 
 int main(void)
 {
@@ -16,15 +16,15 @@ int main(void)
 		char c = 'a', e, e1, e2;
 		int n = 4, v, v1, v2, w;
 
-		AdjListDirNetwork<char, int> net(vexs, n);
+		AdjListUnDirNetwork<char, int> net(vexs, n);
 
 		for (int v = 0; v < n; v++)
-			for (int u = 0; u < n; u++)
+			for (int u = v; u < n; u++)
 				if (m[v][u] != infity) net.InsertArc(v, u, m[v][u]);
 
 	    while (c != '0')	{
-            cout << endl << "1. 有向网清空.";
-            cout << endl << "2. 显示有向网.";
+            cout << endl << "1. 无向网清空.";
+            cout << endl << "2. 显示无向网.";
             cout << endl << "3. 取指定顶点的值.";
             cout << endl << "4. 设置指定顶点的值.";
             cout << endl << "5. 删除顶点.";
@@ -37,22 +37,23 @@ int main(void)
 		    cin >> c;
 		    switch (c) 		{
 			    case '1':
+			        net.CountDegree(0);
 			        net.Clear();
 				    break;
 			    case '2':
                     if (net.IsEmpty())
-                        cout << "该有向网为空。" << endl;
+                        cout << "该无向网为空。" << endl;
                     else 
 			            net.Display();
 				    break;
 			    case '3':
-			        cout << endl << "输入顶点序号（有向网的顶点序号从0开始）:";
+			        cout << endl << "输入顶点序号（无向网的顶点序号从0开始）:";
 			        cin >> v;
 		            net.GetElem(v, e);
 		            cout << "序号为" << v << "的顶点为" << e;
 			        break;
 			    case '4':
-			        cout << endl << "输入顶点序号（有向网的顶点序号从0开始）:";
+			        cout << endl << "输入顶点序号（无向网的顶点序号从0开始）:";
 			        cin >> v;
 			        cout << endl << "输入" << v <<"号顶点的值:";
 			        cin >> e;
