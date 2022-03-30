@@ -261,6 +261,8 @@ void AdjListDirNetwork<ElemType, WeightType>::InsertArc(int v1, int v2, WeightTy
 	AdjListNetworkArc<WeightType> *p, *q;
 	p = vexTable[v1].firstarc;
     vexTable[v1].firstarc = new AdjListNetworkArc<WeightType>(v2, w, p);
+    p = vexTable[v2].firstarc;
+    vexTable[v2].firstarc = new AdjListNetworkArc<WeightType>(v1, w, p);
 	arcNum++;
 }
 
@@ -330,6 +332,18 @@ void AdjListDirNetwork<ElemType, WeightType>::DeleteArc(int v1, int v2)
         delete p;    
 		arcNum--;
 	}
+    p = vexTable[v2].firstarc;
+    while (p != NULL && p->adjVex != v1) {
+        q = p;
+        p = p->nextarc;
+    }
+    if (p != NULL) {
+        if (vexTable[v2].firstarc == p)
+            vexTable[v2].firstarc = p->nextarc;
+        else
+            q->nextarc = p->nextarc;
+        delete p;
+    }
 }
 
 template <class ElemType, class WeightType>
