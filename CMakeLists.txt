@@ -5,10 +5,6 @@ set(CMAKE_CXX_STANDARD 14)
 
 include_directories(.)
 
-add_executable(test
-        AdjListUnDirNetworkVex.h
-        AdjListUnDirNetworkArc.h
-        AdjListUnDirNetwork.h
-        Assistance.h
-        TestAdjListUnDirNetwork.cpp
-)
+file(GLOB SRC ${CMAKE_CURRENT_SOURCE_DIR}/*.c*)
+
+add_executable(test ${SRC})
