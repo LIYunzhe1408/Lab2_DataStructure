@@ -501,14 +501,12 @@ int AdjListUnDirNetwork<ElemType, WeightType>::CountDegree(int v) const
 {
     AdjListNetworkArc<WeightType> *p;
     int cnt = 0;
-    cout << v << ":\t" << vexTable[v].data;				// ÏÔÊ¾¶¥µãºÅ
     p = vexTable[v].firstarc;
     while (p != NULL)
     {
         p = p->nextarc;
         ++cnt;
     }
-    cout << "'s degree = " << cnt << endl;
     return cnt;
 }
 

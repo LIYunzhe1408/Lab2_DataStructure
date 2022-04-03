@@ -1,26 +1,30 @@
 #include "Assistance.h"					// 辅助软件包
 #include "AdjListUnDirNetwork.h"		// 邻接表无向网
-
+#include"Kruskal.h"
+#include"Prim.h"
+#include"BreakCycle.h"
 int main(void)
 {
     try									// 用try封装可能出现异常的代码
 	{
 		int infity = DEFAULT_INFINITY;
-		char vexs[] = {'A', 'B', 'C', 'D'};
-		int m[4][4] = {
-			{infity, 1, infity, infity},
-			{2, infity, infity, infity},
-			{3, 5, infity, 7},
-			{4, 6, 7, infity}
+		char vexs[] = {'A', 'B', 'C', 'D','E','F'};
+		int m[6][6] = {
+			{0, 34, 46, infity,infity,19},
+			{34, 0, infity, infity,12,infity},
+			{46, infity, 0, 17,infity,25},
+			{infity, infity, 17, 0,38,25},
+            {infity,12,infity,38,0,26},
+            {19,infity,25,25,26,0}
 		};
 		char c = 'a', e, e1, e2;
-		int n = 4, v, v1, v2, w;
+		int n = 6, v, v1, v2, w;
 
 		AdjListUnDirNetwork<char, int> net(vexs, n);
 
 		for (int v = 0; v < n; v++)
 			for (int u = v; u < n; u++)
-				if (m[v][u] != infity) net.InsertArc(v, u, m[v][u]);
+				if (m[v][u] != infity&&m[v][u]!=0) net.InsertArc(v, u, m[v][u]);
 
 	    while (c != '0')	{
             cout << endl << "1. 无向网清空.";
@@ -32,8 +36,9 @@ int main(void)
             cout << endl << "7. 删除边.";
             cout << endl << "8. 插入边.";
             cout << endl << "9. 设置指定边的权.";
+            cout<<endl<<"a.求最小生成树";
 		    cout << endl << "0. 退出";
-		    cout << endl << "选择功能(0~9):";
+		    cout << endl << "选择功能(0~10):";
 		    cin >> c;
 		    switch (c) 		{
 			    case '1':
@@ -87,6 +92,14 @@ int main(void)
 			        v2 = net.GetOrder(e2);
 		            net.SetWeight(v1, v2, w);
 			        break;
+                case'a':
+                    cout<<"Kruskal算法：最小生成树的边及权值为："<<endl;
+                    MiniSpanTreeKruskal(net);
+                    cout<<"Prim算法：最小生成树的边及权值为："<<endl;
+                    MiniSpanTreePrim(net,0);
+                    cout<<"破圈算法：最小生成树的边及权值为："<<endl;
+                    MiniSpanTreeBreakCycle(net);
+                    break;
        	      }
          }
 	}

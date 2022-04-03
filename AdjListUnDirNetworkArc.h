@@ -8,7 +8,7 @@ struct AdjListNetworkArc
 // 数据成员:
 	int adjVex;								// 弧头顶点序号
 	WeightType weight;						// 边的权值
-	AdjListNetworkArc<WeightType> *nextarc; // 下一条边结点的指针 
+	AdjListNetworkArc<WeightType> *nextarc;          // 下一条边结点的指针
 // 构造函数:
 	AdjListNetworkArc();					// 无参数的构造函数
 	AdjListNetworkArc(int v, WeightType w, AdjListNetworkArc<WeightType> * next = NULL);

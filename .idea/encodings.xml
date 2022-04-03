@@ -5,6 +5,10 @@
     <file url="file://$PROJECT_DIR$/AdjListUnDirNetworkArc.h" charset="GBK" />
     <file url="file://$PROJECT_DIR$/AdjListUnDirNetworkVex.h" charset="GBK" />
     <file url="file://$PROJECT_DIR$/Assistance.h" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/BreakCycle.h" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Kruskal.h" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Prim.h" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/TestAdjListUnDirNetwork.cpp" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

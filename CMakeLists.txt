@@ -7,4 +7,4 @@ include_directories(.)
 
 file(GLOB SRC ${CMAKE_CURRENT_SOURCE_DIR}/*.c*)
 
-add_executable(test ${SRC})
+add_executable(test ${SRC} UFSets.h MineHeap.h Kruskal.h Prim.h BreakCycle.h SeqQueue.h)
