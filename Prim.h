@@ -1,11 +1,20 @@
 #ifndef __PRIM_H__
 #define __PRIM_H__
 #include"Assistance.h"
-#include "AdjListUnDirNetwork.h"
+
+template <class ElemType, class WeightType>
+class AdjListUnDirNetwork;
+
 template <class ElemType, class WeightType>
 struct CloseArcType {
     WeightType lowweight;
     int nearvertex;
+
+    bool operator==(CloseArcType<ElemType,WeightType> close_arc){
+        if(lowweight == close_arc.lowweight && nearvertex == close_arc.nearvertex)
+            return true;
+        return false;
+    }
 };
 
 template <class ElemType, class WeightType>
@@ -32,7 +41,7 @@ void MiniSpanTreePrim(const AdjListUnDirNetwork<ElemType, WeightType> &g, int u0
 
     for (k = 1; k < vexnum; k++) {	// 选择生成树的其余g.GetVexNum() - 1个顶点
         min = g.GetInfinity();
-        v = u0;// 选择使得边<w, adjVex[w]>为连接V-U到U的具有最小权值的边
+        v = u0;  // 选择使得边<w, adjVex[w]>为连接V-U到U的具有最小权值的边
         for (u = 0; u < vexnum; u++)
             if (closearc[u].lowweight != 0 && closearc[u].lowweight < min) {
                 v = u;

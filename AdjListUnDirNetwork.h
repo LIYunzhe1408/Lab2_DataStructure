@@ -3,6 +3,8 @@
 
 #include "AdjListUnDirNetworkArc.h"			// 网络邻接表的边结点类
 #include "AdjListUnDirNetworkVex.h"            // 网络邻接表的顶点结点类
+#include "Kruskal.h"
+#include "Prim.h"
 
 // 无向网的邻接表类
 template <class ElemType, class WeightType>
@@ -44,7 +46,7 @@ public:
 	WeightType GetWeight(int v1, int v2) const;	 // 求从顶点为v1到v2的边的权值
 	void SetWeight(int v1, int v2, WeightType w);// 设置从顶点为v1到v2的边的权值
 	Status GetTag(int v) const;				     // 求顶点v的标志		 
-	void SetTag(int v, Status tag) const;	     // 设置顶点v的标志为tag
+	void SetTag(int v, Status val) const;	     // 设置顶点v的标志为tag
 
 
 	// TODO
@@ -540,5 +542,58 @@ int AdjListUnDirNetwork<ElemType, WeightType>::ConnectedComponent() {
         tag[i] = UNVISITED;
     return num;
 }
+
+/** \brief 使用Prim算法实现，若有两个顶点到同一树内顶点的距离相同且是目前的最短距离，则不唯一。
+ *         若有一点到两个树内点距离相同，则不唯一。否则存在唯一最小生成树
+ * @tparam ElemType
+ * @tparam WeightType
+ * @return
+ */
+template<class ElemType, class WeightType>
+bool AdjListUnDirNetwork<ElemType, WeightType>::hasUniqueMinTree() {
+    WeightType min;
+    ElemType v1, v2;
+    CloseArcType<ElemType, WeightType> * closearc;
+    int u0 = 0; // 0为第一个顶点
+
+    int u, v, k;						// 表示顶点的临时变量
+    closearc = new CloseArcType<ElemType, WeightType>[vexNum];	// 分配存储空间
+    for (v = 0; v < vexNum; v++)	{	// 初始化辅助数组adjVex，并对顶点作标志，此时U = {v0}
+        closearc[v].nearvertex = u0;
+        closearc[v].lowweight = GetWeight(u0, v);
+    }
+    closearc[u0].nearvertex = -1;
+    closearc[u0].lowweight = 0;
+
+    for (k = 1; k < vexNum; k++) {	// 选择生成树的其余g.GetVexNum() - 1个顶点
+        min = GetInfinity();
+        v = u0;  // 选择使得边<w, adjVex[w]>为连接V-U到U的具有最小权值的边
+        for (u = 0; u < vexNum; u++)
+            if (closearc[u].lowweight != 0 && closearc[u].lowweight < min) {
+                v = u;
+                min = closearc[u].lowweight;
+            }
+        for(int i=0;i<vexNum;i++)   // 若有两个顶点到同一树内顶点的距离相同且是目前的最短距离，则不唯一
+            for(int j=i+1;j<vexNum;j++)
+                if(closearc[i] == closearc[j] && (i == v || j == v))
+                    return false;
+
+
+        if (v != u0) {
+            GetElem(closearc[v].nearvertex, v1);
+            GetElem(v, v2);
+            closearc[v].lowweight = 0;		// 将w并入U
+            for (u = FirstAdjVex(v); u != -1 ; u = NextAdjVex(v, u)) 	// 新顶点并入U后重新选择最小边
+                if (closearc[u].lowweight != 0 && (GetWeight(v, u) < closearc[u].lowweight))	{	// <v, w>为新的最小边
+                    closearc[u].lowweight = GetWeight(v, u);
+                    closearc[u].nearvertex = v;
+                }else if(closearc[u].lowweight != 0 && (GetWeight(v, u) == closearc[u].lowweight))
+                    return false;   // 若有一点到两个树内点距离相同，则不唯一
+        }
+    }
+    delete []closearc;			// 释放存储空间
+    return true;
+}
+
 
 #endif

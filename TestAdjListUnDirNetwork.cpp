@@ -37,8 +37,9 @@ int main(void)
             cout << endl << "8. 插入边.";
             cout << endl << "9. 设置指定边的权.";
             cout<<endl<<"a.求最小生成树";
+            cout << endl << "b.是否有唯一最小生成树.";
 		    cout << endl << "0. 退出";
-		    cout << endl << "选择功能(0~10):";
+		    cout << endl << "选择功能(0~b):";
 		    cin >> c;
 		    switch (c) 		{
 			    case '1':
@@ -92,13 +93,16 @@ int main(void)
 			        v2 = net.GetOrder(e2);
 		            net.SetWeight(v1, v2, w);
 			        break;
-                case'a':
+                case 'a':
                     cout<<"Kruskal算法：最小生成树的边及权值为："<<endl;
                     MiniSpanTreeKruskal(net);
                     cout<<"Prim算法：最小生成树的边及权值为："<<endl;
                     MiniSpanTreePrim(net,0);
                     cout<<"破圈算法：最小生成树的边及权值为："<<endl;
                     MiniSpanTreeBreakCycle(net);
+                    break;
+                case 'b':
+                    cout<<(net.hasUniqueMinTree() ? " 存在" : " 不存在") << "唯一最小生成树";
                     break;
        	      }
          }

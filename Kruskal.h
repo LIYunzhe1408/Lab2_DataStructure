@@ -1,9 +1,11 @@
 #ifndef __KRUSKAL_H__
 #define __KRUSKAL_H__
 #include"Assistance.h"
-#include "AdjListUnDirNetwork.h"		// 邻接表无向网
 #include "UFSets.h"		                // 并查类
 #include "MineHeap.h"
+
+template <class ElemType, class WeightType>
+class AdjListUnDirNetwork;
 
 // Kruskal边类
 template <class ElemType, class WeightType>
